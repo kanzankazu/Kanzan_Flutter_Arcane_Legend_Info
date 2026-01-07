@@ -1,0 +1,30 @@
+name: arcane_legend_calculator
+description: "A new Flutter project."
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.7.0-267.0.dev
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+  flutter_bloc: ^8.1.4
+  get_it: ^7.6.7
+  injectable: ^2.1.2
+  google_fonts: ^6.1.0
+  intl: ^0.18.1
+  equatable: ^2.0.5
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+  build_runner: ^2.4.6
+  injectable_generator: ^2.4.1
+  mocktail: ^1.0.0
+  bloc_test: ^9.1.4
+
+flutter:
+  uses-material-design: true
