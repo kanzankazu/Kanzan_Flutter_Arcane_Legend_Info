@@ -116,7 +116,7 @@ class HomeScreen extends StatelessWidget {
       if (await canLaunchUrl(url)) {
         await launchUrl(
           url,
-          mode: LaunchMode.externalApplication,
+          mode: LaunchMode.externalApplication, // This opens new tab on web or external browser on mobile
         );
       } else {
         debugPrint('Could not launch $urlString');

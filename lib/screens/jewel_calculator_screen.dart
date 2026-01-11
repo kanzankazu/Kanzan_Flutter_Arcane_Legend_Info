@@ -112,6 +112,9 @@ class _JewelCalculatorScreenState extends State<JewelCalculatorScreen> {
                         suffixText: ' gold',
                       ),
                       keyboardType: TextInputType.number,
+                      onChanged: (value) {
+                        _updateBasePrice();
+                      },
                     ),
                   ],
                 ),
@@ -169,16 +172,25 @@ class _JewelCalculatorScreenState extends State<JewelCalculatorScreen> {
                   isImportant: true,
                 ),
                 _buildInfoRow(
+                  'Biaya Material (Cracked):',
+                  JewelLevel.formatCurrency((_basePrice * _jewelInfo['totalCracked']).round()),
+                ),
+                _buildInfoRow(
                   'Biaya Combine:',
                   JewelLevel.formatCurrency(_jewelInfo['combineCost']),
                 ),
+                _buildInfoRow(
+                  'Total Biaya Produksi:',
+                  JewelLevel.formatCurrency(((_basePrice * _jewelInfo['totalCracked']) + _jewelInfo['combineCost']).round()),
+                ),
                 const Divider(),
                 _buildInfoRow(
-                  'Keuntungan Kotor:',
+                  'Keuntungan Bersih:',
                   JewelLevel.formatCurrency(
-                    _jewelInfo['sellPrice'] - _jewelInfo['combineCost'],
+                    (_jewelInfo['sellPrice'] - (_basePrice * _jewelInfo['totalCracked']) - _jewelInfo['combineCost']).round(),
                   ),
                   isImportant: true,
+                  textColor: (_jewelInfo['sellPrice'] - (_basePrice * _jewelInfo['totalCracked']) - _jewelInfo['combineCost']) >= 0 ? Colors.green : Colors.red,
                 ),
               ],
             ],
@@ -188,7 +200,7 @@ class _JewelCalculatorScreenState extends State<JewelCalculatorScreen> {
     ];
   }
 
-  Widget _buildInfoRow(String label, String value, {bool isImportant = false}) {
+  Widget _buildInfoRow(String label, String value, {bool isImportant = false, Color? textColor}) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4.0),
       child: Row(
@@ -204,7 +216,7 @@ class _JewelCalculatorScreenState extends State<JewelCalculatorScreen> {
             value,
             style: TextStyle(
               fontWeight: isImportant ? FontWeight.bold : FontWeight.normal,
-              color: isImportant ? Theme.of(context).primaryColor : null,
+              color: textColor ?? (isImportant ? Theme.of(context).primaryColor : null),
             ),
           ),
         ],

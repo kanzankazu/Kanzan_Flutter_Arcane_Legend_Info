@@ -65,7 +65,15 @@ class _ElixirCalculatorScreenState extends State<ElixirCalculatorScreen> {
             if (_result != null) ...[
               const SizedBox(height: 16),
               Card(
-                color: _result!['profit'] >= 0 ? Colors.green.shade50 : Colors.red.shade50,
+                color: _result!['profit'] >= 0 
+                  ? Theme.of(context).colorScheme.tertiaryContainer 
+                  : Theme.of(context).colorScheme.errorContainer,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  side: BorderSide(
+                    color: (_result!['profit'] >= 0 ? Colors.green : Colors.red).withOpacity(0.5),
+                  ),
+                ),
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Column(
@@ -75,16 +83,48 @@ class _ElixirCalculatorScreenState extends State<ElixirCalculatorScreen> {
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
-                          color: _result!['profit'] >= 0 ? Colors.green.shade700 : Colors.red.shade700,
+                          color: _result!['profit'] >= 0 
+                            ? Theme.of(context).colorScheme.onTertiaryContainer 
+                            : Theme.of(context).colorScheme.onErrorContainer,
                         ),
                       ),
                       const Divider(),
-                      _buildResultRow('Total Cracked Didapat', '${_result!['totalCracked']} buah'),
-                      _buildResultRow('Total Nilai', JewelLevel.formatCurrency(_result!['totalValue'].round())),
-                      _buildResultRow('Keuntungan', _result!['formattedProfit']),
+                      _buildResultRow(
+                        'Total Cracked Didapat', 
+                        '${_result!['totalCracked']} buah',
+                        textColor: _result!['profit'] >= 0 
+                          ? Theme.of(context).colorScheme.onTertiaryContainer 
+                          : Theme.of(context).colorScheme.onErrorContainer,
+                      ),
+                      _buildResultRow(
+                        'Total Nilai', 
+                        JewelLevel.formatCurrency(_result!['totalValue'].round()),
+                        textColor: _result!['profit'] >= 0 
+                          ? Theme.of(context).colorScheme.onTertiaryContainer 
+                          : Theme.of(context).colorScheme.onErrorContainer,
+                      ),
+                      _buildResultRow(
+                        'Keuntungan', 
+                        _result!['formattedProfit'],
+                        textColor: _result!['profit'] >= 0 
+                          ? Theme.of(context).colorScheme.onTertiaryContainer 
+                          : Theme.of(context).colorScheme.onErrorContainer,
+                      ),
                       const Divider(),
-                      _buildResultRow('Minimal Cracked (Break Even)', '${_result!['breakEvenQuantity']} buah'),
-                      _buildResultRow('Waktu Balik Modal', '${_result!['breakEvenMinutes'].toStringAsFixed(1)} menit'),
+                      _buildResultRow(
+                        'Minimal Cracked (Break Even)', 
+                        '${_result!['breakEvenQuantity']} buah',
+                        textColor: _result!['profit'] >= 0 
+                          ? Theme.of(context).colorScheme.onTertiaryContainer 
+                          : Theme.of(context).colorScheme.onErrorContainer,
+                      ),
+                      _buildResultRow(
+                        'Waktu Balik Modal', 
+                        '${_result!['breakEvenMinutes'].toStringAsFixed(1)} menit',
+                        textColor: _result!['profit'] >= 0 
+                          ? Theme.of(context).colorScheme.onTertiaryContainer 
+                          : Theme.of(context).colorScheme.onErrorContainer,
+                      ),
                     ],
                   ),
                 ),
@@ -112,14 +152,14 @@ class _ElixirCalculatorScreenState extends State<ElixirCalculatorScreen> {
     );
   }
 
-  Widget _buildResultRow(String label, String value) {
+  Widget _buildResultRow(String label, String value, {Color? textColor}) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(label),
-          Text(value, style: const TextStyle(fontWeight: FontWeight.bold)),
+          Text(label, style: TextStyle(color: textColor)),
+          Text(value, style: TextStyle(fontWeight: FontWeight.bold, color: textColor)),
         ],
       ),
     );

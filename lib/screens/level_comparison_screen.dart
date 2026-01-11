@@ -21,10 +21,12 @@ class _LevelComparisonScreenState extends State<LevelComparisonScreen> {
   late String _endLevel;
   Map<String, dynamic> _comparisonResult = {};
   final TextEditingController _marketPriceController = TextEditingController();
+  final TextEditingController _basePriceController = TextEditingController();
 
   @override
   void dispose() {
     _marketPriceController.dispose();
+    _basePriceController.dispose();
     super.dispose();
   }
 
@@ -32,6 +34,7 @@ class _LevelComparisonScreenState extends State<LevelComparisonScreen> {
   void initState() {
     super.initState();
     _startLevel = widget.initialLevel;
+    _basePriceController.text = widget.basePrice.toString();
     _endLevel = JewelLevel.getJewelLevels()
         .firstWhere(
           (level) => level.name != _startLevel,
@@ -39,16 +42,18 @@ class _LevelComparisonScreenState extends State<LevelComparisonScreen> {
         )
         .name;
     _marketPriceController.addListener(_calculateComparison);
+    _basePriceController.addListener(_calculateComparison);
     _calculateComparison();
   }
 
   void _calculateComparison() {
     final marketPrice = double.tryParse(_marketPriceController.text);
+    final basePrice = double.tryParse(_basePriceController.text) ?? widget.basePrice;
     setState(() {
       _comparisonResult = JewelCalculations.calculatePriceRange(
         _startLevel,
         _endLevel,
-        widget.basePrice,
+        basePrice,
         marketPrice: marketPrice,
       );
     });
@@ -80,6 +85,17 @@ class _LevelComparisonScreenState extends State<LevelComparisonScreen> {
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                       ),
+                    ),
+                    const SizedBox(height: 16),
+                    TextField(
+                      controller: _basePriceController,
+                      decoration: const InputDecoration(
+                        labelText: 'Harga Dasar (Cracked)',
+                        border: OutlineInputBorder(),
+                        prefixText: 'Gold: ',
+                        suffixText: ' gold',
+                      ),
+                      keyboardType: TextInputType.number,
                     ),
                     const SizedBox(height: 16),
                     Row(
@@ -151,18 +167,18 @@ class _LevelComparisonScreenState extends State<LevelComparisonScreen> {
             if (_comparisonResult.containsKey('error'))
               Card(
                 elevation: 4,
-                color: Colors.red.shade50,
+                color: Theme.of(context).colorScheme.errorContainer,
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Row(
                     children: [
-                      Icon(Icons.error_outline, color: Colors.red.shade700),
+                      Icon(Icons.error_outline, color: Theme.of(context).colorScheme.onErrorContainer),
                       const SizedBox(width: 12),
                       Expanded(
                         child: Text(
                           _comparisonResult['error'],
                           style: TextStyle(
-                            color: Colors.red.shade700,
+                            color: Theme.of(context).colorScheme.onErrorContainer,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -207,17 +223,39 @@ class _LevelComparisonScreenState extends State<LevelComparisonScreen> {
                         width: double.infinity,
                         padding: const EdgeInsets.all(12),
                         decoration: BoxDecoration(
-                          color: Colors.blue.shade50,
+                          color: Theme.of(context).colorScheme.secondaryContainer,
                           borderRadius: BorderRadius.circular(8),
+                          border: Border.all(
+                            color: Theme.of(context).colorScheme.primary.withOpacity(0.3),
+                          ),
                         ),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text('Saran & Analisis Kelayakan:', style: TextStyle(fontWeight: FontWeight.bold)),
+                            Text(
+                              'Saran & Analisis Kelayakan:',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Theme.of(context).colorScheme.onSecondaryContainer,
+                              ),
+                            ),
                             const SizedBox(height: 4),
-                            Text(_comparisonResult['suggestion'], style: const TextStyle(fontSize: 16)),
+                            Text(
+                              _comparisonResult['suggestion'],
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: Theme.of(context).colorScheme.onSecondaryContainer,
+                              ),
+                            ),
                             const SizedBox(height: 8),
-                            Text('Saran harga jual minimal (Profit 10%): ${_comparisonResult['formattedMinPrice']}', style: const TextStyle(fontSize: 12, fontStyle: FontStyle.italic)),
+                            Text(
+                              'Saran harga jual minimal (Profit 10%): ${_comparisonResult['formattedMinPrice']}',
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontStyle: FontStyle.italic,
+                                color: Theme.of(context).colorScheme.onSecondaryContainer.withOpacity(0.8),
+                              ),
+                            ),
                           ],
                         ),
                       ),
