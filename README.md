@@ -1,147 +1,85 @@
-# Arcane Legend Calculator
+# 💎 Arcane Legend Jewel Calculator
 
 [![Flutter](https://img.shields.io/badge/Flutter-02569B?style=for-the-badge&logo=flutter&logoColor=white)](https://flutter.dev/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Status](https://img.shields.io/badge/Status-Beta-orange.svg)]()
+[![Theme](https://img.shields.io/badge/Theme-Dark_Fantasy-gold.svg)]()
 
-Aplikasi kalkulator untuk game Arcane Legend yang membantu menghitung berbagai statistik dalam permainan.
+Aplikasi kalkulator finansial komprehensif untuk game **Arcane Legends** yang membantu pemain menghitung profitabilitas pembuatan jewel, efisiensi elixir, dan perbandingan harga antar level dengan akurasi tinggi.
 
-## 📱 Fitur
+## 🛡️ Identitas Visual & Branding
+Aplikasi ini dirancang dengan estetika premium yang terinspirasi langsung dari antarmuka game Arcane Legends:
+- **Tipografi Fantasi**: Menggunakan fon `MedievalSharp` untuk elemen branding dan `Almendra` untuk data teks.
+- **Palet Warna Emas & Indigo**: Dominasi warna **Gold (#B8860B)** dan **Deep Indigo** di atas latar belakang gelap untuk kesan MMORPG yang otentik.
+- **Dark Mode Optimized**: Kontras tinggi yang nyaman di mata untuk penggunaan durasi lama.
 
-- 🎯 Kalkulator statistik karakter
-- ⚔️ Perhitungan damage
-- 🛡️ Perbandingan item
-- ⬆️ Simulasi upgrade
-- 📊 Analisis statistik
-- 🌙 Tema gelap/terang
+## 📱 Fitur Utama
 
-## 🚀 Memulai
+### 📊 Dashboard Interaktif
+- Layout grid 3-kolom yang modern dan responsif.
+- Akses cepat ke semua modul kalkulasi.
+- Shortcut ke link komunitas eksternal (Market Itemku, Web Resmi).
 
-### Prasyarat
+### 🔍 Informasi Jewel (Cek Statistik)
+- Detail lengkap setiap level jewel (Cracked hingga Flawless).
+- **Update Harga Real-time**: Kalkulasi otomatis saat Anda mengubah harga dasar.
+- **Analisis Keuntungan Bersih**: Break-down biaya material, biaya combine, dan profit nyata secara mendetail.
 
-- Flutter SDK (versi terbaru)
-- Android Studio / VS Code
-- Perangkat emulator atau perangkat fisik
-- Git (untuk version control)
+### ⚔️ Bandingkan Level
+- Eksperimen harga pasar dan harga dasar secara fleksibel.
+- **Analisis Kelayakan**: Memberikan saran objektif apakah proses pembuatan jewel layak dilakukan atau tidak.
+- Indikator visual profit/rugi yang dinamis.
 
-### 📥 Instalasi
+### ⚡ Kalkulator Elixir
+- Hitung *Break Even Point* (BEP) penggunaan Jewel Elixir.
+- Analisis efisiensi berdasarkan durasi dan rate farming Anda.
 
-1. Clone repository ini:
-   ```bash
-   git clone https://github.com/username/arcane-legend-calculator.git
-   cd arcane-legend-calculator
-   ```
+### 📏 Tabel Statistik Responsif
+- Data teknis lengkap semua level jewel dalam satu tampilan.
+- Layout tabel yang pas dengan lebar layar (*match parent*).
 
-2. Install dependencies:
-   ```bash
-   flutter pub get
-   ```
+## 🚀 Persyaratan Sistem & Build (Spesifik)
+Aplikasi ini menggunakan spesifikasi build terbaru untuk mendukung library modern:
+- **Flutter SDK**: Versi terbaru (~3.27+)
+- **Android Gradle Plugin (AGP)**: 8.9.1
+- **Gradle Wrapper**: 8.11.1
+- **Kotlin**: 2.1.0
+- **Android SDK**: CompileSdk 35 / MinSdk 21
 
-### ▶️ Menjalankan Aplikasi
+## 🏗️ Struktur Proyek (Actual)
 
-```bash
-# Jalankan di perangkat yang tersedia
-flutter run
-
-# Atau jalankan dengan opsi release
-flutter run --release
-```
-
-## 🏗️ Struktur Proyek
-
-```
+```text
 lib/
-├── core/                  # Core functionality
-│   ├── constants/        # Konstanta aplikasi
-│   ├── theme/            # Tema dan styling
-│   └── utils/            # Utility functions
-│
-├── data/                 # Layer data
-│   ├── models/           # Model data
-│   └── repositories/     # Repositori data
-│
-├── domain/               # Business logic
-│   ├── entities/         # Entitas bisnis
-│   └── usecases/         # Use cases aplikasi
-│
-├── presentation/         # Layer presentasi
-│   ├── pages/            # Halaman aplikasi
-│   ├── widgets/          # Komponen UI reusable
-│   └── providers/        # State management
-│
-└── main.dart             # Entry point aplikasi
+├── domain/
+│   ├── entities/        # Definisi data JewelLevel (Basis Perhitungan)
+│   └── repositories/    # Manajemen data jewel
+├── screens/             # UI Pages (Home, Calculator, Comparison, etc.)
+├── utils/               # Logika perhitungan (calculations.dart)
+└── main.dart            # Konfigurasi Tema & Entry Point
 ```
 
-## 🛠️ Pengembangan
+## 📥 Instalasi & Jalankan
 
-### Build APK
-
-```bash
-flutter build apk --release
-```
-
-### Build App Bundle
-
-```bash
-flutter build appbundle
-```
-
-### Menjalankan Test
-
-```bash
-flutter test
-```
-
-## 🚨 Troubleshooting
-
-### Jika `flutter pub get` Gagal
-
-Jika Anda mendapatkan error seperti:
-```
-Failed to start the Dart CLI isolate. Could not resolve DartDev snapshot or kernel.
-```
-
-Ikuti langkah-langkah berikut:
-
-1. **Periksa versi Flutter**
-   ```bash
-   flutter doctor -v
-   ```
-
-2. **Bersihkan cache Flutter**
-   ```bash
-   flutter clean
-   ```
-
-3. **Perbarui Flutter**
-   ```bash
-   flutter upgrade
-   ```
-
-4. **Dapatkan ulang dependencies**
+1. **Dapatkan Dependencies**:
    ```bash
    flutter pub get
    ```
 
-5. **Periksa koneksi internet**
-   Pastikan koneksi internet stabil dan tidak ada pemblokiran akses ke pub.dev
+2. **Jalankan Aplikasi (Web)**:
+   ```bash
+   flutter run -d chrome
+   ```
 
-6. **Periksa file pubspec.yaml**
-   Pastikan format file pubspec.yaml valid dan tidak ada kesalahan sintaks
+3. **Jalankan Aplikasi (Android)**:
+   ```bash
+   adb devices  # Pastikan HP terdeteksi
+   flutter run
+   ```
 
-## 🤝 Kontribusi
-
-Kontribusi sangat diterima! Berikut cara berkontribusi:
-
-1. Fork repository ini
-2. Buat branch fitur baru (`git checkout -b fitur/namafitur`)
-3. Commit perubahan (`git commit -m 'Menambahkan fitur baru'`)
-4. Push ke branch (`git push origin fitur/namafitur`)
-5. Buat Pull Request
-
-## 📜 Lisensi
-
-Proyek ini dilisensikan di bawah [MIT License](LICENSE).
+## 🚨 Troubleshooting Build Android
+Jika build gagal karena versi Gradle/AGP:
+1. Jalankan `flutter clean`.
+2. Pastikan `android/settings.gradle.kts` menggunakan AGP 8.9.1.
+3. Pastikan `gradle-wrapper.properties` menggunakan versi 8.11.1.
 
 ---
-
-Dibuat dengan ❤️ oleh [Nama Anda]
+Dibuat dengan ❤️ untuk komunitas Arcane Legends oleh **Kanzan**

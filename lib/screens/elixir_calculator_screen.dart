@@ -10,10 +10,10 @@ class ElixirCalculatorScreen extends StatefulWidget {
 }
 
 class _ElixirCalculatorScreenState extends State<ElixirCalculatorScreen> {
-  final _elixirPriceController = TextEditingController(text: '50000');
-  final _crackedPriceController = TextEditingController(text: '1000');
+  final _elixirPriceController = TextEditingController(text: '1000');
+  final _crackedPriceController = TextEditingController(text: '100');
   final _durationController = TextEditingController(text: '30');
-  final _rateController = TextEditingController(text: '1');
+  final _rateController = TextEditingController(text: '5');
 
   Map<String, dynamic>? _result;
 
