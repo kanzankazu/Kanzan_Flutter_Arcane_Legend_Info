@@ -70,10 +70,10 @@ class HomeScreen extends StatelessWidget {
                   ),
                   _buildDashboardItem(
                     context,
-                    title: 'Market Itemku',
+                    title: 'G2G Market',
                     icon: Icons.shopping_basket,
                     color: Colors.pink,
-                    onTap: () => _launchURL('https://www.itemku.com/g/arcane-legends/semua'),
+                    onTap: () => _launchURL('https://www.g2g.com/id/categories/arcane-legends-gold'),
                   ),
                   _buildDashboardItem(
                     context,
@@ -113,12 +113,12 @@ class HomeScreen extends StatelessWidget {
   Future<void> _launchURL(String urlString) async {
     final Uri url = Uri.parse(urlString);
     try {
-      if (await canLaunchUrl(url)) {
-        await launchUrl(
-          url,
-          mode: LaunchMode.externalApplication, // This opens new tab on web or external browser on mobile
-        );
-      } else {
+      // Mencoba membuka secara langsung tanpa canLaunchUrl yang terkadang false di web/Android 11+
+      final launched = await launchUrl(
+        url,
+        mode: LaunchMode.externalApplication,
+      );
+      if (!launched) {
         debugPrint('Could not launch $urlString');
       }
     } catch (e) {
